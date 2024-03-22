@@ -1,45 +1,42 @@
-import React, {useState} from 'react'
-import { FaTrashCan } from "react-icons/fa6";
+import React, { useState } from 'react';
+import { FaTrashAlt } from 'react-icons/fa';
 
 const TodoList = () => {
-
-    const [task, setTask] = useState("")
-    const [list, setList] = useState([])
+    const [task, setTask] = useState("");
+    const [list, setList] = useState([]);
 
     const handlerInput = (e) => {
-        let text = e.target.value ;
-        if (e.keyCode == 13){
+        let text = e.target.value;
+        if (e.keyCode === 13) {
             setTask(text);
-            setList([...list,text]);
+            setList([...list, text]);
             e.target.value = "";
         }
     }
 
     const deleteTask = (index) => {
-        let newList = list.slice();
-        newList = newList.filter((item , index2) => {
-            return index2 != index;
-        })
+        let newList = list.filter((item, index2) => index2 !== index);
         setList(newList);
     }
 
-  return (
-    <div className="notebook">
-        <h1>To Do List</h1>
-        <input onKeyUp={(e)=>{handlerInput(e)}} placeholder='Write your task'></input>
-        <ol>
-            {list.map((item,index)=>{
-
-                return <li key={index}>{item} 
-                <button onClick={(e) => {deleteTask(index)}}><FaTrashCan /></button>
-                </li>
-
-            })}
-            <p>{list.length} pending tasks</p>
-        </ol>
-        <div className="wooden-table"></div>
-    </div>
-  )
+    return (
+        <div className="notebook">
+            <h1>To Do List</h1>
+            <input onKeyUp={(e) => { handlerInput(e) }}></input>
+            <ol>
+                {list.map((item, index) => (
+                    <li key={index}>
+                        {index + 1}. {item}
+                        <button onClick={() => { deleteTask(index) }}>
+                            <FaTrashAlt />
+                        </button>
+                    </li>
+                ))}
+            </ol>
+            <p>{list.length == 0? "No tasks, add a task": `${list.length} pending tasks`} </p>
+            <div className="wooden-table"></div>
+        </div>
+    )
 }
 
-export default TodoList
+export default TodoList;

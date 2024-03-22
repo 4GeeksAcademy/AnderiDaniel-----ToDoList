@@ -69,6 +69,15 @@ body {
     margin-top: 10px; 
     text-align: center;
   }
+
+  .notebook li button {
+    opacity: 0; /* Initially hide the button */
+}
+
+.notebook li:hover button {
+    opacity: 1; /* Show the button when the list item is hovered */
+}
+
   
 
   
